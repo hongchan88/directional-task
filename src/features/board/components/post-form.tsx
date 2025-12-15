@@ -2,6 +2,14 @@ import { Form, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Category, CreatePostDto } from "@/features/board/types";
 import { useState } from "react";
 
@@ -15,65 +23,63 @@ export function PostForm({ initialData, errors, disabled }: PostFormProps) {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
-  // Quick controlled state for Select (native for now)
-  const [category, setCategory] = useState<Category>(initialData?.category || Category.FREE);
+  // Controlled state for Shadcn Select
+  const [category, setCategory] = useState<string>(initialData?.category || Category.FREE);
 
   return (
-    <Form method="post" className="space-y-8">
-      <div className="space-y-4">
-        <h3 className="text-lg font-medium">Post Details</h3>
-        
-        {/* Title */}
+    <Form method="post" className="space-y-6">
+       {/* Title */}
         <div className="space-y-2">
-            <label htmlFor="title" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Title</label>
+            <Label htmlFor="title">Title</Label>
             <Input 
                 id="title" 
                 name="title" 
-                placeholder="Enter post title" 
+                placeholder="Heads up! Design update..." 
                 defaultValue={initialData?.title} 
                 className={errors?.title ? "border-red-500" : ""}
                 required
             />
-            {errors?.title && <p className="text-sm text-red-500">{errors.title}</p>}
+            {errors?.title && <p className="text-sm text-red-500 font-medium">{errors.title}</p>}
         </div>
 
         {/* Category */}
         <div className="space-y-2">
-            <label htmlFor="category" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Category</label>
-            <select
-                id="category"
-                name="category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value as Category)}
-                className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-                {Object.values(Category).map((cat) => (
-                    <option key={cat} value={cat}>{cat}</option>
-                ))}
-            </select>
+            <Label htmlFor="category">Category</Label>
+            <input type="hidden" name="category" value={category} />
+            <Select value={category} onValueChange={setCategory} disabled={disabled}>
+                <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent>
+                    {Object.values(Category).map((cat) => (
+                        <SelectItem key={cat} value={cat}>
+                            {cat}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
         </div>
 
         {/* Body */}
         <div className="space-y-2">
-            <label htmlFor="body" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Content</label>
+            <Label htmlFor="body">Content</Label>
             <Textarea 
                 id="body" 
                 name="body" 
-                placeholder="Write your content here..." 
+                placeholder="Write your thoughts here..." 
                 defaultValue={initialData?.body} 
-                className={`min-h-[200px] ${errors?.body ? "border-red-500" : ""}`}
+                className={`min-h-[250px] resize-none ${errors?.body ? "border-red-500" : ""}`}
                 required
             />
-            {errors?.body && <p className="text-sm text-red-500">{errors.body}</p>}
+            {errors?.body && <p className="text-sm text-red-500 font-medium">{errors.body}</p>}
         </div>
 
         {/* General Error */}
         {errors?.global && (
-             <div className="p-3 text-sm text-red-600 bg-red-50 rounded-md">
+             <div className="p-3 text-sm text-red-600 bg-red-50 rounded-md font-medium">
                 {errors.global}
              </div>
         )}
-      </div>
 
       <div className="flex justify-end gap-4">
         <Button variant="outline" type="button" onClick={() => window.history.back()}>

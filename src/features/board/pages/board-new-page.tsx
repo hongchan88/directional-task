@@ -3,6 +3,8 @@ import { PostForm } from "../components/post-form";
 import { createPost } from "../api/board-api";
 import { Category } from "../types";
 import { BANNED_WORDS } from "@/lib/constants";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+
 
 export async function createPostAction({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -52,15 +54,16 @@ export default function BoardNewPage() {
   const errors = useActionData() as Record<string, string> | undefined;
 
   return (
-    <div className="max-w-2xl mx-auto py-8">
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold tracking-tight">Create New Post</h2>
-        <p className="text-muted-foreground">Share your thoughts with the team.</p>
-      </div>
-      
-      <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
-        <PostForm errors={errors} />
-      </div>
+    <div className="max-w-3xl mx-auto py-8">
+       <Card>
+            <CardHeader>
+                <CardTitle>Create New Post</CardTitle>
+                <CardDescription>Share your updates, questions, or thoughts with the team.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <PostForm errors={errors} />
+            </CardContent>
+       </Card>
     </div>
   );
 }

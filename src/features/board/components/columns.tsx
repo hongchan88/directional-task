@@ -9,8 +9,8 @@ export const columns: ColumnDef<Post>[] = [
     accessorKey: "id",
     header: "ID",
     enableResizing: true,
-    size: 80,
-    cell: ({ row }) => <div className="w-[80px] truncate">{row.getValue("id")}</div>,
+    size: 50, // Smaller weight
+    cell: ({ row }) => <div className="truncate">{row.getValue("id")}</div>,
   },
   {
     accessorKey: "title",
@@ -26,10 +26,10 @@ export const columns: ColumnDef<Post>[] = [
       );
     },
     enableResizing: true,
-    size: 300,
+    size: 500, // Large weight to take up space
     cell: ({ row }) => {
         return (
-            <Link to={`/posts/${row.original.id}`} className="font-medium hover:underline text-blue-600">
+            <Link to={`/posts/${row.original.id}`} className="font-medium hover:underline text-blue-600 block truncate">
                 {row.getValue("title")}
             </Link>
         )
@@ -58,7 +58,7 @@ export const columns: ColumnDef<Post>[] = [
     accessorKey: "userId",
     header: "Author",
     enableResizing: true,
-    size: 120,
+    size: 100,
   },
   {
     accessorKey: "createdAt",
@@ -78,6 +78,6 @@ export const columns: ColumnDef<Post>[] = [
         return date.toLocaleDateString();
     },
     enableResizing: true,
-    size: 120,
+    size: 100,
   },
 ];

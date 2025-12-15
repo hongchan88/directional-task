@@ -6,6 +6,8 @@ import { LoaderFunctionArgs } from "react-router-dom";
 import { DataTable } from "../components/data-table";
 import { columns } from "../components/columns";
 import { BoardToolbar } from "../components/board-toolbar";
+import { Card, CardContent } from "@/components/ui/card";
+
 
 // Debounce hook
 function useDebounce<T>(value: T, delay: number): T {
@@ -133,16 +135,18 @@ export default function BoardPage() {
         onCategoryChange={handleCategoryChange}
       />
 
-      <div className="rounded-md bg-white border">
-        <DataTable columns={columns} data={posts} />
-        
-        {/* Loading Indicator & Trigger */}
-        <div ref={lastPostElementRef} className="py-4 text-sm text-slate-500 text-center min-h-[50px]">
-            {fetcher.state === "loading" ? "Loading more..." : (
-                initialData?.nextCursor ? "Scroll for more" : "No more posts"
-            )}
-        </div>
-      </div>
+      <Card>
+        <CardContent className="p-0">
+          <DataTable columns={columns} data={posts} />
+          
+          {/* Loading Indicator & Trigger */}
+          <div ref={lastPostElementRef} className="py-4 text-sm text-slate-500 text-center min-h-[50px]">
+              {fetcher.state === "loading" ? "Loading more..." : (
+                  initialData?.nextCursor ? "Scroll for more" : "No more posts"
+              )}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

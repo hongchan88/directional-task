@@ -94,7 +94,8 @@ export function DataTable<TData, TValue>({
         <div className="relative w-full overflow-auto">
             <table className="w-full caption-bottom text-sm"
                 style={{
-                    width: table.getTotalSize(),
+                    width: "100%",
+                    tableLayout: "fixed",
                 }}
             >
             <thead className="[&_tr]:border-b">
