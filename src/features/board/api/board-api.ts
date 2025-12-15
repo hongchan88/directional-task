@@ -4,7 +4,7 @@ import { Post, PostListParams, PostListResponse, CreatePostDto, UpdatePostDto, C
 import mockPosts from "./mock-posts.json";
 
 const BASE = "/posts";
-const USE_MOCK_DATA = true;
+const USE_MOCK_DATA = false;
 
 // Helper for Mock Data
 const getMockPosts = async (params: PostListParams): Promise<PostListResponse> => {

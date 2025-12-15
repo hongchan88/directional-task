@@ -32,11 +32,11 @@ const MOCK_COFFEE_CONSUMPTION: ConsumptionImpact[] = [
 ];
 
 const MOCK_SNACK_IMPACT: ConsumptionImpact[] = [
-    { amount: 1, Frontend: { meetingMissed: 0, morale: 60 }, Backend: { meetingMissed: 0, morale: 65 }, AI: { meetingMissed: 1, morale: 70 } },
-    { amount: 2, Frontend: { meetingMissed: 1, morale: 70 }, Backend: { meetingMissed: 0, morale: 70 }, AI: { meetingMissed: 1, morale: 75 } },
-    { amount: 3, Frontend: { meetingMissed: 2, morale: 80 }, Backend: { meetingMissed: 1, morale: 75 }, AI: { meetingMissed: 2, morale: 80 } },
-    { amount: 4, Frontend: { meetingMissed: 3, morale: 85 }, Backend: { meetingMissed: 1, morale: 80 }, AI: { meetingMissed: 3, morale: 82 } },
-    { amount: 5, Frontend: { meetingMissed: 5, morale: 90 }, Backend: { meetingMissed: 2, morale: 85 }, AI: { meetingMissed: 4, morale: 88 } },
+    { amount: 1, Marketing: { meetingsMissed: 3, morale: 70 }, Sales: { meetingsMissed: 4, morale: 68 }, HR: { meetingsMissed: 1, morale: 72 } },
+    { amount: 2, Marketing: { meetingsMissed: 2, morale: 78 }, Sales: { meetingsMissed: 3, morale: 75 }, HR: { meetingsMissed: 1, morale: 80 } },
+    { amount: 3, Marketing: { meetingsMissed: 2, morale: 84 }, Sales: { meetingsMissed: 2, morale: 82 }, HR: { meetingsMissed: 2, morale: 87 } },
+    { amount: 4, Marketing: { meetingsMissed: 4, morale: 80 }, Sales: { meetingsMissed: 3, morale: 79 }, HR: { meetingsMissed: 2, morale: 84 } },
+    { amount: 5, Marketing: { meetingsMissed: 5, morale: 76 }, Sales: { meetingsMissed: 6, morale: 73 }, HR: { meetingsMissed: 3, morale: 81 } },
 ];
 
 // Toggle for real vs mock
