@@ -33,8 +33,9 @@ export interface PostListParams {
 }
 
 export interface PostListResponse {
-  data: Post[];
-  total: number;
-  page: number;
-  limit: number;
+  items: Post[];
+  prevCursor: number | null;
+  nextCursor: number | null;
+  // Fallback for types if needed, but structure is clearly items array.
+  // There is NO total count in the snippet provided.
 }

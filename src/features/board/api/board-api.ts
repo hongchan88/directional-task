@@ -12,6 +12,10 @@ export const getPosts = async (params: PostListParams): Promise<PostListResponse
   if (params.sort) searchParams.append("sort", params.sort);
   if (params.order) searchParams.append("order", params.order);
 
+  /* 
+    API returns { items: [], nextCursor: ... } 
+    We return response.data directly.
+  */
   const response = await api.get(`${BASE}?${searchParams.toString()}`);
   return response.data;
 };
@@ -23,6 +27,7 @@ export const getPost = async (id: string): Promise<Post> => {
 
 export const createPost = async (data: CreatePostDto): Promise<Post> => {
   const response = await api.post(BASE, data);
+  console.log(response,"response")
   return response.data;
 };
 
