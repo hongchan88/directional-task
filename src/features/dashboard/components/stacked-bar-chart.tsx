@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   BarChart,
   Bar,
@@ -23,6 +24,18 @@ interface StackedBarChartProps {
 }
 
 export function StackedBarChart({ title, description, data, xKey, bars }: StackedBarChartProps) {
+  const [hiddenKeys, setHiddenKeys] = useState<string[]>([]);
+
+  const handleLegendClick = (e: any) => {
+      // Recharts Legend payload key is usually the dataKey
+      const key = e.dataKey;
+      setHiddenKeys(prev => 
+          prev.includes(key) 
+              ? prev.filter(k => k !== key) 
+              : [...prev, key]
+      );
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -50,7 +63,13 @@ export function StackedBarChart({ title, description, data, xKey, bars }: Stacke
                 cursor={{ fill: 'transparent' }}
                 contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
               />
-              <Legend verticalAlign="bottom" height={36} iconType="circle" />
+              <Legend 
+                  verticalAlign="bottom" 
+                  height={36} 
+                  iconType="circle" 
+                  onClick={handleLegendClick}
+                  wrapperStyle={{ cursor: 'pointer' }}
+              />
               {bars.map((bar) => (
                 <Bar 
                     key={bar.key} 
@@ -59,6 +78,7 @@ export function StackedBarChart({ title, description, data, xKey, bars }: Stacke
                     stackId="a" 
                     fill={bar.color} 
                     radius={[0, 0, 0, 0]} 
+                    hide={hiddenKeys.includes(bar.key)}
                 />
               ))}
             </BarChart>

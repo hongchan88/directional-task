@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   AreaChart,
   Area,
@@ -23,6 +24,17 @@ interface StackedAreaChartProps {
 }
 
 export function StackedAreaChart({ title, description, data, xKey, areas }: StackedAreaChartProps) {
+  const [hiddenKeys, setHiddenKeys] = useState<string[]>([]);
+
+  const handleLegendClick = (e: any) => {
+      const key = e.dataKey;
+      setHiddenKeys(prev => 
+          prev.includes(key) 
+              ? prev.filter(k => k !== key) 
+              : [...prev, key]
+      );
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -50,7 +62,13 @@ export function StackedAreaChart({ title, description, data, xKey, areas }: Stac
                 cursor={{ stroke: 'rgba(0,0,0,0.1)', strokeWidth: 2 }}
                 contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
               />
-              <Legend verticalAlign="bottom" height={36} iconType="circle" />
+              <Legend 
+                  verticalAlign="bottom" 
+                  height={36} 
+                  iconType="circle" 
+                  onClick={handleLegendClick}
+                  wrapperStyle={{ cursor: 'pointer' }}
+              />
               {areas.map((area) => (
                 <Area 
                     key={area.key} 
@@ -60,6 +78,7 @@ export function StackedAreaChart({ title, description, data, xKey, areas }: Stac
                     stackId="1" 
                     stroke={area.color}
                     fill={area.color} 
+                    hide={hiddenKeys.includes(area.key)}
                 />
               ))}
             </AreaChart>

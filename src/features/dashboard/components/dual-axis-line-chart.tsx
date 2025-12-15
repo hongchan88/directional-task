@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   LineChart,
   Line,
@@ -23,15 +24,18 @@ interface DualAxisLineChartProps {
 
 // Custom Square Dot for Right Axis metrics
 const SquareDot = (props: any) => {
-  const { cx, cy, stroke } = props;
+  const { cx, cy, stroke, fill, payload, size = 8, filled = false, color: explicitColor } = props;
+  // Priority: explicit color > stroke > fill > payload values > fallback
+  const color = explicitColor || stroke || fill || payload?.stroke || payload?.fill || "#000";
+  const offset = size / 2;
   return (
     <rect 
-        x={cx - 4} 
-        y={cy - 4} 
-        width={8} 
-        height={8} 
-        fill="white" 
-        stroke={stroke} 
+        x={cx - offset} 
+        y={cy - offset} 
+        width={size} 
+        height={size} 
+        fill={filled ? color : "white"} 
+        stroke={color} 
         strokeWidth={2} 
     />
   );
@@ -85,6 +89,8 @@ const CustomTooltip = ({ active, payload, label, xLabel }: any) => {
   return null;
 };
 
+
+
 export function DualAxisLineChart({ 
     title, 
     description, 
@@ -95,6 +101,16 @@ export function DualAxisLineChart({
     leftMetric, 
     rightMetric 
 }: DualAxisLineChartProps) {
+  const [hiddenKeys, setHiddenKeys] = useState<string[]>([]);
+
+  const handleLegendClick = (e: any) => {
+      const key = e.dataKey;
+      setHiddenKeys(prev => 
+          prev.includes(key) 
+              ? prev.filter(k => k !== key) 
+              : [...prev, key]
+      );
+  };
   
   return (
     <Card>
@@ -129,37 +145,49 @@ export function DualAxisLineChart({
                 shared={false} 
                 trigger="hover"
               />
-              <Legend verticalAlign="bottom" height={36} />
+              <Legend 
+                  verticalAlign="bottom" 
+                  height={36} 
+                  onClick={handleLegendClick}
+                  wrapperStyle={{ cursor: 'pointer' }}
+               />
 
-              {teams.map((team) => [
+              {teams.map((team) => {
+                const leftKey = `${team.name}.${leftMetric.key}`;
+                const rightKey = `${team.name}.${rightMetric.key}`;
+
+                return [
                 // Left Axis Line (Solid, Circle)
                 <Line
                     key={`${team.name}-${leftMetric.key}`}
                     yAxisId="left"
                     type="monotone"
-                    dataKey={`${team.name}.${leftMetric.key}`} // Nested access
+                    dataKey={leftKey}
                     name={`${team.name} ${leftMetric.label}`}
                     legendType="circle"
                     stroke={team.color}
                     strokeWidth={2}
                     dot={{ r: 4, fill: "white", strokeWidth: 2 }}
-                    activeDot={{ r: 6 }}
+                    activeDot={{ r: 6, fill: team.color, stroke: "none" }}
+                    hide={hiddenKeys.includes(leftKey)}
                 />,
                 // Right Axis Line (Dashed, Square)
                 <Line
                     key={`${team.name}-${rightMetric.key}`}
                     yAxisId="right"
                     type="monotone"
-                    dataKey={`${team.name}.${rightMetric.key}`}
+                    dataKey={rightKey}
                     name={`${team.name} ${rightMetric.label}`}
                     legendType="square"
                     stroke={team.color}
                     strokeWidth={2}
                     strokeDasharray="5 5"
-                    dot={<SquareDot />}
-                    activeDot={{ r: 6 }}
+                    dot={(props: any) => <SquareDot {...props} color={team.color} />}
+                    activeDot={(props: any) => <SquareDot {...props} size={12} filled color={team.color} />}
+                    hide={hiddenKeys.includes(rightKey)}
                 />
-              ])}
+                ];
+              })}
             </LineChart>
           </ResponsiveContainer>
         </div>
