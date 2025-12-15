@@ -1,0 +1,802 @@
+[
+  {
+    "id": "mock-1",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 1 - Important Topic",
+    "body": "This is a generated body content for post 1. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-15T07:49:16.784Z"
+  },
+  {
+    "id": "mock-2",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 2 - General Discussion",
+    "body": "This is a generated body content for post 2. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-14T07:49:16.786Z"
+  },
+  {
+    "id": "mock-3",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 3 - Important Topic",
+    "body": "This is a generated body content for post 3. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-13T07:49:16.786Z"
+  },
+  {
+    "id": "mock-4",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 4 - General Discussion",
+    "body": "This is a generated body content for post 4. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-12T07:49:16.786Z"
+  },
+  {
+    "id": "mock-5",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 5 - Important Topic",
+    "body": "This is a generated body content for post 5. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-11T07:49:16.786Z"
+  },
+  {
+    "id": "mock-6",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 6 - General Discussion",
+    "body": "This is a generated body content for post 6. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-10T07:49:16.786Z"
+  },
+  {
+    "id": "mock-7",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 7 - Important Topic",
+    "body": "This is a generated body content for post 7. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-09T07:49:16.786Z"
+  },
+  {
+    "id": "mock-8",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 8 - General Discussion",
+    "body": "This is a generated body content for post 8. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-08T07:49:16.786Z"
+  },
+  {
+    "id": "mock-9",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 9 - Important Topic",
+    "body": "This is a generated body content for post 9. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-07T07:49:16.786Z"
+  },
+  {
+    "id": "mock-10",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 10 - General Discussion",
+    "body": "This is a generated body content for post 10. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-06T07:49:16.786Z"
+  },
+  {
+    "id": "mock-11",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 11 - Important Topic",
+    "body": "This is a generated body content for post 11. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-05T07:49:16.786Z"
+  },
+  {
+    "id": "mock-12",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 12 - General Discussion",
+    "body": "This is a generated body content for post 12. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-04T07:49:16.786Z"
+  },
+  {
+    "id": "mock-13",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 13 - Important Topic",
+    "body": "This is a generated body content for post 13. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-03T07:49:16.786Z"
+  },
+  {
+    "id": "mock-14",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 14 - General Discussion",
+    "body": "This is a generated body content for post 14. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-02T07:49:16.786Z"
+  },
+  {
+    "id": "mock-15",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 15 - Important Topic",
+    "body": "This is a generated body content for post 15. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-12-01T07:49:16.786Z"
+  },
+  {
+    "id": "mock-16",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 16 - General Discussion",
+    "body": "This is a generated body content for post 16. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-30T07:49:16.786Z"
+  },
+  {
+    "id": "mock-17",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 17 - Important Topic",
+    "body": "This is a generated body content for post 17. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-29T07:49:16.786Z"
+  },
+  {
+    "id": "mock-18",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 18 - General Discussion",
+    "body": "This is a generated body content for post 18. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-28T07:49:16.786Z"
+  },
+  {
+    "id": "mock-19",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 19 - Important Topic",
+    "body": "This is a generated body content for post 19. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-27T07:49:16.786Z"
+  },
+  {
+    "id": "mock-20",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 20 - General Discussion",
+    "body": "This is a generated body content for post 20. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-26T07:49:16.786Z"
+  },
+  {
+    "id": "mock-21",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 21 - Important Topic",
+    "body": "This is a generated body content for post 21. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-25T07:49:16.786Z"
+  },
+  {
+    "id": "mock-22",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 22 - General Discussion",
+    "body": "This is a generated body content for post 22. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-24T07:49:16.786Z"
+  },
+  {
+    "id": "mock-23",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 23 - Important Topic",
+    "body": "This is a generated body content for post 23. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-23T07:49:16.786Z"
+  },
+  {
+    "id": "mock-24",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 24 - General Discussion",
+    "body": "This is a generated body content for post 24. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-22T07:49:16.786Z"
+  },
+  {
+    "id": "mock-25",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 25 - Important Topic",
+    "body": "This is a generated body content for post 25. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-21T07:49:16.786Z"
+  },
+  {
+    "id": "mock-26",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 26 - General Discussion",
+    "body": "This is a generated body content for post 26. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-20T07:49:16.786Z"
+  },
+  {
+    "id": "mock-27",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 27 - Important Topic",
+    "body": "This is a generated body content for post 27. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-19T07:49:16.786Z"
+  },
+  {
+    "id": "mock-28",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 28 - General Discussion",
+    "body": "This is a generated body content for post 28. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-18T07:49:16.786Z"
+  },
+  {
+    "id": "mock-29",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 29 - Important Topic",
+    "body": "This is a generated body content for post 29. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-17T07:49:16.786Z"
+  },
+  {
+    "id": "mock-30",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 30 - General Discussion",
+    "body": "This is a generated body content for post 30. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-16T07:49:16.786Z"
+  },
+  {
+    "id": "mock-31",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 31 - Important Topic",
+    "body": "This is a generated body content for post 31. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-15T07:49:16.786Z"
+  },
+  {
+    "id": "mock-32",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 32 - General Discussion",
+    "body": "This is a generated body content for post 32. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-14T07:49:16.786Z"
+  },
+  {
+    "id": "mock-33",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 33 - Important Topic",
+    "body": "This is a generated body content for post 33. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-13T07:49:16.786Z"
+  },
+  {
+    "id": "mock-34",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 34 - General Discussion",
+    "body": "This is a generated body content for post 34. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-12T07:49:16.786Z"
+  },
+  {
+    "id": "mock-35",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 35 - Important Topic",
+    "body": "This is a generated body content for post 35. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-11T07:49:16.786Z"
+  },
+  {
+    "id": "mock-36",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 36 - General Discussion",
+    "body": "This is a generated body content for post 36. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-10T07:49:16.786Z"
+  },
+  {
+    "id": "mock-37",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 37 - Important Topic",
+    "body": "This is a generated body content for post 37. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-09T07:49:16.786Z"
+  },
+  {
+    "id": "mock-38",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 38 - General Discussion",
+    "body": "This is a generated body content for post 38. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-08T07:49:16.786Z"
+  },
+  {
+    "id": "mock-39",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 39 - Important Topic",
+    "body": "This is a generated body content for post 39. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-07T07:49:16.786Z"
+  },
+  {
+    "id": "mock-40",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 40 - General Discussion",
+    "body": "This is a generated body content for post 40. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-06T07:49:16.786Z"
+  },
+  {
+    "id": "mock-41",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 41 - Important Topic",
+    "body": "This is a generated body content for post 41. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-05T07:49:16.786Z"
+  },
+  {
+    "id": "mock-42",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 42 - General Discussion",
+    "body": "This is a generated body content for post 42. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-04T07:49:16.786Z"
+  },
+  {
+    "id": "mock-43",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 43 - Important Topic",
+    "body": "This is a generated body content for post 43. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-03T07:49:16.786Z"
+  },
+  {
+    "id": "mock-44",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 44 - General Discussion",
+    "body": "This is a generated body content for post 44. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-02T07:49:16.786Z"
+  },
+  {
+    "id": "mock-45",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 45 - Important Topic",
+    "body": "This is a generated body content for post 45. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-11-01T07:49:16.786Z"
+  },
+  {
+    "id": "mock-46",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 46 - General Discussion",
+    "body": "This is a generated body content for post 46. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-10-31T07:49:16.786Z"
+  },
+  {
+    "id": "mock-47",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 47 - Important Topic",
+    "body": "This is a generated body content for post 47. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-10-30T07:49:16.786Z"
+  },
+  {
+    "id": "mock-48",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 48 - General Discussion",
+    "body": "This is a generated body content for post 48. It is separated into a JSON file to simulate external data source.",
+    "category": "FREE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-10-29T07:49:16.786Z"
+  },
+  {
+    "id": "mock-49",
+    "userId": "user-1",
+    "user": {
+      "id": "user-1",
+      "email": "user@example.com"
+    },
+    "title": "Mock Post Title 49 - Important Topic",
+    "body": "This is a generated body content for post 49. It is separated into a JSON file to simulate external data source.",
+    "category": "NOTICE",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-10-28T07:49:16.786Z"
+  },
+  {
+    "id": "mock-50",
+    "userId": "user-2",
+    "user": {
+      "id": "user-2",
+      "email": "other@example.com"
+    },
+    "title": "Mock Post Title 50 - General Discussion",
+    "body": "This is a generated body content for post 50. It is separated into a JSON file to simulate external data source.",
+    "category": "QNA",
+    "tags": [
+      "mock",
+      "test"
+    ],
+    "createdAt": "2025-10-27T07:49:16.786Z"
+  }
+]

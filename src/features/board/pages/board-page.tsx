@@ -11,6 +11,7 @@ import { useAuth } from "@/features/auth/auth-provider";
 import { DeletePostButton } from "../components/delete-post-button";
 import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
+import { SortingState } from "@tanstack/react-table";
 
 
 // Debounce hook
@@ -65,11 +66,13 @@ export default function BoardPage() {
   const fetcher = useFetcher<{ data: PostListResponse }>();
   // State to accumulate posts for infinite scroll
   const [posts, setPosts] = useState<Post[]>(initialData?.items || []);
-  console.log(posts,"posts")
-  // Reset posts when main filter change (search/category) from loader
+  const [nextCursor, setNextCursor] = useState<number | null>(initialData?.nextCursor ?? null);
+
+  // Reset posts and cursor when main filter change (search/category) from loader
   useEffect(() => {
     if (initialData?.items) {
         setPosts(initialData.items);
+        setNextCursor(initialData.nextCursor ?? null);
     }
   }, [initialData]);
 
@@ -81,6 +84,7 @@ export default function BoardPage() {
             const unique = newItems.filter(p => !prev.find(existing => existing.id === p.id));
             return [...prev, ...unique];
         });
+        setNextCursor(fetcher.data.data.nextCursor ?? null);
     }
   }, [fetcher.data]);
 
@@ -92,13 +96,18 @@ export default function BoardPage() {
 
     observer.current = new IntersectionObserver((entries) => {
       // Check if we have a nextCursor to fetch more
-      if (entries[0].isIntersecting && initialData?.nextCursor) {
+      if (entries[0].isIntersecting && nextCursor) {
         // Load next page
-        // If API uses cursor logic, we should use cursor param. But currently our loader uses page/limit.
-        // The mock API might return nextCursor but still support page/limit or it might expect cursor?
-        // Assuming we stick to page based if the API is 'fe-hiring-test' which often is page/limit.
-        // But if it returned nextCursor, maybe it wants cursor based?
-        // Let's stick to page loop for now but use nextCursor existence as "hasMore".
+        
+        // If we were using cursor-based API, we'd pass nextCursor.
+        // For page-based, we calculate next page.
+        // Or if the API is page-based but returns nextCursor as next page number (which our mock does)
+        // We can just use `nextCursor` as the page param if it represents page number.
+        // Our mock returns `page + 1` or null.
+        // So we can use `nextCursor` directly if logic aligns.
+        // Or calculate: `const nextPage = Math.ceil(posts.length / params.limit) + 1;`
+        // Let's rely on calculation for safety or reset logic, but strictly check hasMore.
+        // Reverting to calculation to match existing logic style but gated by nextCursor.
         
         const nextPage = Math.ceil(posts.length / params.limit) + 1;
         const searchParams = new URLSearchParams();
@@ -113,7 +122,7 @@ export default function BoardPage() {
       }
     });
     if (node) observer.current.observe(node);
-  }, [fetcher.state, posts.length, initialData?.nextCursor, params]);
+  }, [fetcher.state, posts.length, nextCursor, params]);
 
   // Local state for Toolbar UI
   const initialSearch = searchParams.get("search") || "";
@@ -143,6 +152,30 @@ export default function BoardPage() {
     });
   };
 
+  // Sorting State derived from URL
+  const sorting: SortingState = [
+    { 
+        id: searchParams.get("sort") || "createdAt", 
+        desc: (searchParams.get("order") || "desc") === "desc" 
+    }
+  ];
+
+  const handleSortingChange = (newSorting: SortingState) => {
+    const firstSort = newSorting[0];
+    setSearchParams(prev => {
+        if (firstSort) {
+            prev.set("sort", firstSort.id);
+            prev.set("order", firstSort.desc ? "desc" : "asc");
+        } else {
+            // Default reset if all sorting cleared
+            prev.set("sort", "createdAt");
+            prev.set("order", "desc");
+        }
+        prev.set("page", "1");
+        return prev;
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -167,6 +200,8 @@ export default function BoardPage() {
           <DataTable 
             columns={columns} 
             data={posts} 
+            sorting={sorting}
+            onSortingChange={handleSortingChange}
             onRowClick={(post) => navigate(`/posts/${post.id}`)}
             persistenceKey="board-columns"
             renderRowAction={(post) => {
@@ -188,7 +223,7 @@ export default function BoardPage() {
           {/* Loading Indicator & Trigger */}
           <div ref={lastPostElementRef} className="py-4 text-sm text-slate-500 text-center min-h-[50px]">
               {fetcher.state === "loading" ? "Loading more..." : (
-                  initialData?.nextCursor ? "Scroll for more" : "No more posts"
+                  nextCursor ? "Scroll for more" : "No more posts"
               )}
           </div>
         </CardContent>

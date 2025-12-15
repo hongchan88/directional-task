@@ -18,8 +18,8 @@ export async function createPostAction({ request }: ActionFunctionArgs) {
   if (!title || title.trim().length < 2) {
     errors.title = "Title must be at least 2 characters string.";
   }
-  if (!body || body.trim().length < 5) {
-    errors.body = "Content must be at least 5 characters long.";
+  if (!body || body.trim().length < 1) {
+    errors.body = "Content is required.";
   }
 
   // Banned Words Validation
