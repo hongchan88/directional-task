@@ -7,7 +7,7 @@ import BoardPage, { boardLoader, boardAction } from "@/features/board/pages/boar
 import BoardNewPage, { createPostAction } from "@/features/board/pages/board-new-page";
 import BoardEditPage, { boardEditLoader, updatePostAction } from "@/features/board/pages/board-edit-page";
 import BoardDetailPage, { boardDetailLoader } from "@/features/board/pages/board-detail-page";
-const DashboardPage = () => <div>Dashboard Feature (To be implemented)</div>;
+import DashboardPage, { dashboardLoader } from "@/features/dashboard/pages/dashboard-page";
 
 import ErrorPage from "@/components/error-page";
 
@@ -52,6 +52,7 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: <DashboardPage />,
+        loader: dashboardLoader,
       },
     ],
   },
