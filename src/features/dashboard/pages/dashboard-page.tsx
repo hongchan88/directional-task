@@ -1,30 +1,51 @@
 import { useMemo, useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import { getWeeklyMoodTrend, getPopularSnackBrands, getWeeklyWorkoutTrend } from "../api/dashboard-api";
-import { WeeklyMoodTrend, PopularSnackBrands, WeeklyWorkoutTrend } from "../types";
+import { 
+    getWeeklyMoodTrend, 
+    getPopularSnackBrands, 
+    getWeeklyWorkoutTrend,
+    getCoffeeConsumption,
+    getSnackImpact
+} from "../api/dashboard-api";
+import { 
+    WeeklyMoodTrend, 
+    PopularSnackBrands, 
+    WeeklyWorkoutTrend,
+    ConsumptionImpact
+} from "../types";
 import { SimpleBarChart } from "../components/simple-bar-chart";
 import { SimpleDonutChart } from "../components/simple-donut-chart";
 import { StackedBarChart } from "../components/stacked-bar-chart";
 import { StackedAreaChart } from "../components/stacked-area-chart";
-import { Button } from "@/components/ui/button"; // Reusing shadcn button for tabs style
+import { DualAxisLineChart } from "../components/dual-axis-line-chart";
 
 export async function dashboardLoader() {
-  const [moodTrend, snackBrands, workoutTrend] = await Promise.all([
+  const [moodTrend, snackBrands, workoutTrend, coffeeConsumption, snackImpact] = await Promise.all([
     getWeeklyMoodTrend(),
     getPopularSnackBrands(),
     getWeeklyWorkoutTrend(),
+    getCoffeeConsumption(),
+    getSnackImpact(),
   ]);
-  return { moodTrend, snackBrands, workoutTrend };
+  return { moodTrend, snackBrands, workoutTrend, coffeeConsumption, snackImpact };
 }
 
 export default function DashboardPage() {
-  const { moodTrend, snackBrands, workoutTrend } = useLoaderData() as { 
+  const { 
+      moodTrend = [], 
+      snackBrands = [], 
+      workoutTrend = [], 
+      coffeeConsumption = [], 
+      snackImpact = [] 
+  } = useLoaderData() as { 
       moodTrend: WeeklyMoodTrend[]; 
       snackBrands: PopularSnackBrands;
       workoutTrend: WeeklyWorkoutTrend[];
+      coffeeConsumption: ConsumptionImpact[];
+      snackImpact: ConsumptionImpact[];
   };
 
-  const [activeTab, setActiveTab] = useState<"task1" | "task2">("task1");
+  const [activeTab, setActiveTab] = useState<"task1" | "task2" | "task3">("task1");
 
   const moodAverage = useMemo(() => {
     if (!moodTrend.length) return [];
@@ -50,10 +71,10 @@ export default function DashboardPage() {
             <p className="text-slate-500">Overview of weekly trends and preferences.</p>
         </div>
         
-        <div className="flex border-b border-slate-200">
+        <div className="flex border-b border-slate-200 overflow-x-auto">
              <button 
                 onClick={() => setActiveTab("task1")}
-                className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
                     activeTab === "task1" 
                     ? "border-blue-600 text-blue-600" 
                     : "border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300"
@@ -63,18 +84,28 @@ export default function DashboardPage() {
              </button>
              <button 
                 onClick={() => setActiveTab("task2")}
-                className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
                     activeTab === "task2" 
                     ? "border-blue-600 text-blue-600" 
                     : "border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300"
                 }`}
              >
-                Task 2: Mood & Workout Trends
+                Task 2: Trends
+             </button>
+             <button 
+                onClick={() => setActiveTab("task3")}
+                className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
+                    activeTab === "task3" 
+                    ? "border-blue-600 text-blue-600" 
+                    : "border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300"
+                }`}
+             >
+                Task 3: Multi-Line Analysis
              </button>
         </div>
       </div>
 
-      {activeTab === "task1" ? (
+      {activeTab === "task1" && (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
             {/* Weekly Mood Trend Section */}
             <StackedBarChart 
@@ -113,7 +144,9 @@ export default function DashboardPage() {
                 dataKey="share"
             />
           </div>
-      ) : (
+      )}
+
+      {activeTab === "task2" && (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
              {/* Weekly Mood Trend - Task 2 Variant */}
              <StackedBarChart 
@@ -162,6 +195,39 @@ export default function DashboardPage() {
                     { key: 'stretching', color: '#6366f1', name: 'Stretching' }
                 ]}
             />
+          </div>
+      )}
+
+      {activeTab === "task3" && (
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
+              <DualAxisLineChart 
+                 title="Coffee Consumption Impact"
+                 description="Correlating coffee intake with performance metrics"
+                 xKey="amount"
+                 xLabel="Cups/Day"
+                 data={coffeeConsumption}
+                 teams={[
+                    { name: 'Frontend', color: '#3b82f6' },
+                    { name: 'Backend', color: '#ef4444' },
+                    { name: 'AI', color: '#10b981' }
+                 ]}
+                 leftMetric={{ key: 'bugs', label: 'Bugs' }}
+                 rightMetric={{ key: 'productivity', label: 'Productivity' }}
+              />
+              <DualAxisLineChart 
+                 title="Snack Consumption Impact"
+                 description="Correlating snack intake with team morale"
+                 xKey="amount"
+                 xLabel="Snacks/Event"
+                 data={snackImpact}
+                 teams={[
+                    { name: 'Marketing', color: '#3b82f6' },
+                    { name: 'Sales', color: '#ef4444' },
+                    { name: 'HR', color: '#10b981' }
+                 ]}
+                 leftMetric={{ key: 'meetingsMissed', label: 'Meetings Missed' }}
+                 rightMetric={{ key: 'morale', label: 'Morale' }}
+              />
           </div>
       )}
     </div>
