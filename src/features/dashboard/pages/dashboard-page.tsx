@@ -1,24 +1,30 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import { getWeeklyMoodTrend, getPopularSnackBrands } from "../api/dashboard-api";
-import { WeeklyMoodTrend, PopularSnackBrands } from "../types";
+import { getWeeklyMoodTrend, getPopularSnackBrands, getWeeklyWorkoutTrend } from "../api/dashboard-api";
+import { WeeklyMoodTrend, PopularSnackBrands, WeeklyWorkoutTrend } from "../types";
 import { SimpleBarChart } from "../components/simple-bar-chart";
 import { SimpleDonutChart } from "../components/simple-donut-chart";
 import { StackedBarChart } from "../components/stacked-bar-chart";
+import { StackedAreaChart } from "../components/stacked-area-chart";
+import { Button } from "@/components/ui/button"; // Reusing shadcn button for tabs style
 
 export async function dashboardLoader() {
-  const [moodTrend, snackBrands] = await Promise.all([
+  const [moodTrend, snackBrands, workoutTrend] = await Promise.all([
     getWeeklyMoodTrend(),
     getPopularSnackBrands(),
+    getWeeklyWorkoutTrend(),
   ]);
-  return { moodTrend, snackBrands };
+  return { moodTrend, snackBrands, workoutTrend };
 }
 
 export default function DashboardPage() {
-  const { moodTrend, snackBrands } = useLoaderData() as { 
+  const { moodTrend, snackBrands, workoutTrend } = useLoaderData() as { 
       moodTrend: WeeklyMoodTrend[]; 
-      snackBrands: PopularSnackBrands; 
+      snackBrands: PopularSnackBrands;
+      workoutTrend: WeeklyWorkoutTrend[];
   };
+
+  const [activeTab, setActiveTab] = useState<"task1" | "task2">("task1");
 
   const moodAverage = useMemo(() => {
     if (!moodTrend.length) return [];
@@ -38,49 +44,126 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900">Dashboard</h2>
-        <p className="text-slate-500">Overview of weekly trends and preferences.</p>
+      <div className="flex flex-col space-y-4">
+        <div>
+            <h2 className="text-2xl font-bold tracking-tight text-slate-900">Dashboard</h2>
+            <p className="text-slate-500">Overview of weekly trends and preferences.</p>
+        </div>
+        
+        <div className="flex border-b border-slate-200">
+             <button 
+                onClick={() => setActiveTab("task1")}
+                className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                    activeTab === "task1" 
+                    ? "border-blue-600 text-blue-600" 
+                    : "border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300"
+                }`}
+             >
+                Task 1: Snacks & Mood
+             </button>
+             <button 
+                onClick={() => setActiveTab("task2")}
+                className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                    activeTab === "task2" 
+                    ? "border-blue-600 text-blue-600" 
+                    : "border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300"
+                }`}
+             >
+                Task 2: Mood & Workout Trends
+             </button>
+        </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
-        {/* Weekly Mood Trend Section */}
-        <StackedBarChart 
-            title="Weekly Mood Trend (Stacked Bar)" 
-            description="Composition of daily employee mood"
-            data={moodTrend}
-            xKey="week"
-            bars={[
-                { key: 'happy', color: '#4ade80', name: 'Happy' },
-                { key: 'tired', color: '#fb923c', name: 'Tired' },
-                { key: 'stressed', color: '#f87171', name: 'Stressed' }
-            ]}
-        />
-        <SimpleDonutChart 
-            title="Average Mood Distribution (Donut)"
-            description="Average mood composition over the period"
-            data={moodAverage}
-            nameKey="name"
-            dataKey="value"
-        />
+      {activeTab === "task1" ? (
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
+            {/* Weekly Mood Trend Section */}
+            <StackedBarChart 
+                title="Weekly Mood Trend (Stacked Bar)" 
+                description="Composition of daily employee mood"
+                data={moodTrend}
+                xKey="week"
+                bars={[
+                    { key: 'happy', color: '#4ade80', name: 'Happy' },
+                    { key: 'tired', color: '#fb923c', name: 'Tired' },
+                    { key: 'stressed', color: '#f87171', name: 'Stressed' }
+                ]}
+            />
+            <SimpleDonutChart 
+                title="Average Mood Distribution (Donut)"
+                description="Average mood composition over the period"
+                data={moodAverage}
+                nameKey="name"
+                dataKey="value"
+            />
 
-        {/* Snack Brands Section */}
-        <SimpleBarChart 
-            title="Popular Snack Brands (Bar)" 
-            description="Market share by brand preference"
-            data={snackBrands}
-            xKey="name"
-            yKey="share"
-            color="#ec4899"
-        />
-        <SimpleDonutChart 
-            title="Snack Brand Share (Donut)"
-            description="Brand preference distribution"
-            data={snackBrands}
-            nameKey="name"
-            dataKey="share"
-        />
-      </div>
+            {/* Snack Brands Section */}
+            <SimpleBarChart 
+                title="Popular Snack Brands (Bar)" 
+                description="Market share by brand preference"
+                data={snackBrands}
+                xKey="name"
+                yKey="share"
+                color="#ec4899"
+            />
+            <SimpleDonutChart 
+                title="Snack Brand Share (Donut)"
+                description="Brand preference distribution"
+                data={snackBrands}
+                nameKey="name"
+                dataKey="share"
+            />
+          </div>
+      ) : (
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
+             {/* Weekly Mood Trend - Task 2 Variant */}
+             <StackedBarChart 
+                title="Weekly Mood Trend (Stacked Bar)" 
+                description="Daily mood composition"
+                data={moodTrend}
+                xKey="week"
+                bars={[
+                    { key: 'happy', color: '#4ade80', name: 'Happy' },
+                    { key: 'tired', color: '#fb923c', name: 'Tired' },
+                    { key: 'stressed', color: '#f87171', name: 'Stressed' }
+                ]}
+            />
+             <StackedAreaChart 
+                title="Weekly Mood Trend (Stacked Area)" 
+                description="Daily mood composition trend"
+                data={moodTrend}
+                xKey="week"
+                areas={[
+                    { key: 'happy', color: '#4ade80', name: 'Happy' },
+                    { key: 'tired', color: '#fb923c', name: 'Tired' },
+                    { key: 'stressed', color: '#f87171', name: 'Stressed' }
+                ]}
+            />
+
+             {/* Weekly Workout Trend */}
+             <StackedBarChart 
+                title="Weekly Workout Trend (Stacked Bar)" 
+                description="Daily workout activities"
+                data={workoutTrend}
+                xKey="week"
+                bars={[
+                    { key: 'running', color: '#3b82f6', name: 'Running' },
+                    { key: 'cycling', color: '#06b6d4', name: 'Cycling' },
+                    { key: 'stretching', color: '#6366f1', name: 'Stretching' }
+                ]}
+            />
+             <StackedAreaChart 
+                title="Weekly Workout Trend (Stacked Area)" 
+                description="Daily workout activities trend"
+                data={workoutTrend}
+                xKey="week"
+                areas={[
+                    { key: 'running', color: '#3b82f6', name: 'Running' },
+                    { key: 'cycling', color: '#06b6d4', name: 'Cycling' },
+                    { key: 'stretching', color: '#6366f1', name: 'Stretching' }
+                ]}
+            />
+          </div>
+      )}
     </div>
   );
 }

@@ -10,4 +10,9 @@ export interface SnackBrandShare {
   share: number;
 }
 
-export type PopularSnackBrands = SnackBrandShare[];
+export interface WeeklyWorkoutTrend {
+  week: string; // e.g., "2024-12-02"
+  running: number;
+  cycling: number;
+  stretching: number;
+}
