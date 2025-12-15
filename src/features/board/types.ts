@@ -7,6 +7,10 @@ export enum Category {
 export interface Post {
   id: string;
   userId: string;
+  user?: {
+    id: string;
+    email: string;
+  };
   title: string;
   body: string;
   category: Category;

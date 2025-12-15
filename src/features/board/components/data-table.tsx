@@ -13,9 +13,11 @@ import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
+    DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { Eye, EyeOff } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -23,6 +25,8 @@ interface DataTableProps<TData, TValue> {
   onSortingChange?: (sorting: SortingState) => void;
   sorting?: SortingState;
   onRowClick?: (data: TData) => void;
+  persistenceKey?: string;
+  renderRowAction?: (data: TData) => React.ReactNode;
 }
 
 export function DataTable<TData, TValue>({
@@ -31,9 +35,24 @@ export function DataTable<TData, TValue>({
   onSortingChange,
   sorting,
   onRowClick,
+  persistenceKey,
+  renderRowAction,
 }: DataTableProps<TData, TValue>) {
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
     const [columnResizeMode] = React.useState<ColumnResizeMode>('onChange');
+    const [columnSizing, setColumnSizing] = React.useState<Record<string, number>>(() => {
+        if (persistenceKey) {
+            const saved = localStorage.getItem(persistenceKey);
+            return saved ? JSON.parse(saved) : {};
+        }
+        return {};
+    });
+
+    React.useEffect(() => {
+        if (persistenceKey) {
+            localStorage.setItem(persistenceKey, JSON.stringify(columnSizing));
+        }
+    }, [columnSizing, persistenceKey]);
 
   const table = useReactTable({
     data,
@@ -54,9 +73,11 @@ export function DataTable<TData, TValue>({
         }
     },
     onColumnVisibilityChange: setColumnVisibility,
+    onColumnSizingChange: setColumnSizing,
     state: {
       sorting,
       columnVisibility,
+      columnSizing,
     },
   });
 
@@ -65,8 +86,8 @@ export function DataTable<TData, TValue>({
         <div className="flex items-center py-4">
             <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-auto">
-                Columns
+                <Button variant="outline" className="ml-auto mr-2 rounded-full">
+                Hide / View Columns
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -76,17 +97,23 @@ export function DataTable<TData, TValue>({
                     (column) => column.getCanHide()
                 )
                 .map((column) => {
+                    const isVisible = column.getIsVisible();
                     return (
-                    <DropdownMenuCheckboxItem
+                    <DropdownMenuItem
                         key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                        }
+                        onSelect={(e) => {
+                            e.preventDefault();
+                            column.toggleVisibility(!isVisible);
+                        }}
+                        className="capitalize flex items-center gap-2 cursor-pointer"
                     >
+                        {isVisible ? (
+                            <Eye className="h-4 w-4 text-blue-500" />
+                        ) : (
+                            <EyeOff className="h-4 w-4 text-slate-400" />
+                        )}
                         {column.id}
-                    </DropdownMenuCheckboxItem>
+                    </DropdownMenuItem>
                     )
                 })}
             </DropdownMenuContent>
@@ -139,16 +166,24 @@ export function DataTable<TData, TValue>({
                     <tr
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
-                    className={`border-b transition-colors hover:bg-slate-100/50 data-[state=selected]:bg-slate-100 group ${onRowClick ? 'cursor-pointer' : ''}`}
+                    className={`border-b transition-colors hover:bg-slate-100/50 data-[state=selected]:bg-slate-100 group relative ${onRowClick ? 'cursor-pointer' : ''}`}
                     onClick={() => onRowClick?.(row.original)}
                     >
-                    {row.getVisibleCells().map((cell) => (
+                    {row.getVisibleCells().map((cell, index) => (
                         <td key={cell.id} className="p-4 align-middle [&:has([role=checkbox])]:pr-0"
                             style={{
                                 width: cell.column.getSize(),
                             }}
                         >
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        {index === row.getVisibleCells().length - 1 && renderRowAction && (
+                            <div 
+                                className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-white/80 backdrop-blur-sm rounded-md shadow-sm border p-1 z-10"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {renderRowAction(row.original)}
+                            </div>
+                        )}
                         </td>
                     ))}
                     </tr>

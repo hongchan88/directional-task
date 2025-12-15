@@ -7,6 +7,10 @@ import { DataTable } from "../components/data-table";
 import { columns } from "../components/columns";
 import { BoardToolbar } from "../components/board-toolbar";
 import { Card, CardContent } from "@/components/ui/card";
+import { useAuth } from "@/features/auth/auth-provider";
+import { DeletePostButton } from "../components/delete-post-button";
+import { Button } from "@/components/ui/button";
+import { Edit } from "lucide-react";
 
 
 // Debounce hook
@@ -57,6 +61,7 @@ export default function BoardPage() {
   const { data: initialData, params } = useLoaderData() as { data: PostListResponse, params: any };
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const fetcher = useFetcher<{ data: PostListResponse }>();
   // State to accumulate posts for infinite scroll
   const [posts, setPosts] = useState<Post[]>(initialData?.items || []);
@@ -163,6 +168,21 @@ export default function BoardPage() {
             columns={columns} 
             data={posts} 
             onRowClick={(post) => navigate(`/posts/${post.id}`)}
+            persistenceKey="board-columns"
+            renderRowAction={(post) => {
+                const isAuthor = user?.id === post.userId;
+                if (!isAuthor) return null;
+                return (
+                    <div className="flex gap-1">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-blue-500 hover:text-blue-600 hover:bg-blue-50" asChild>
+                            <Link to={`/posts/${post.id}/edit`}>
+                                <Edit className="h-4 w-4" />
+                            </Link>
+                        </Button>
+                        <DeletePostButton postId={post.id} className="opacity-100" />
+                    </div>
+                );
+            }}
           />
           
           {/* Loading Indicator & Trigger */}

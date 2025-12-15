@@ -29,7 +29,7 @@ export async function loginAction({ request }: ActionFunctionArgs) {
 }
 
 export default function LoginPage() {
-  const actionData = useActionData() as { data?: { accessToken: string ,user : User}; error?: string } | undefined;
+  const actionData = useActionData() as { data?: { token: string ,user : User}; error?: string } | undefined;
   const navigation = useNavigation();
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -37,8 +37,8 @@ export default function LoginPage() {
   const isSubmitting = navigation.state === "submitting";
 
   useEffect(() => {
-    if (actionData?.data?.accessToken) {
-        login(actionData.data.accessToken, actionData.data.user);
+    if (actionData?.data?.token) {
+        login(actionData.data.token, actionData.data.user);
         navigate("/posts", { replace: true });
     }
   }, [actionData, login, navigate]);
