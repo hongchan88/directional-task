@@ -45,7 +45,10 @@ export async function boardAction({ request }: ActionFunctionArgs) {
   return null;
 }
 
+import { requireAuth } from "@/lib/require-auth";
+
 export async function boardLoader({ request }: LoaderFunctionArgs) {
+  requireAuth();
   const url = new URL(request.url);
   const page = Number(url.searchParams.get("page")) || 1;
   const limit = Number(url.searchParams.get("limit")) || 20;

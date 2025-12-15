@@ -4,9 +4,11 @@ import { getPost, updatePost } from "../api/board-api";
 import { Category, Post } from "../types";
 import { BANNED_WORDS } from "@/lib/constants";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { requireAuth } from "@/lib/require-auth";
 
 // Loader to fetch existing post
 export async function boardEditLoader({ params }: LoaderFunctionArgs) {
+  requireAuth();
   if (!params.postId) throw new Error("Post ID is required");
   const post = await getPost(params.postId);
   return post;

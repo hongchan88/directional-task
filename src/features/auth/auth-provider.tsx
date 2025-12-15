@@ -40,16 +40,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user]);
 
   const login = useCallback((newToken: string, newUser?: User) => {
+    // Save to localStorage FIRST (synchronously) so loaders can read it immediately
+    localStorage.setItem("accessToken", newToken);
     setToken(newToken);
-    // For this demo, if no user is provided, we simulate a user.
-    // In a real app, we would decode the token.
-    // We'll simulate that the logged in user is "user-1" (matching the mock data's common userId)
-    // or specific email if passed.
+    
     if (newUser) {
+        localStorage.setItem("user", JSON.stringify(newUser));
         setUser(newUser);
     } else {
         // Fallback simulation
-        setUser({ id: "user-1", email: "user@example.com" });
+        const fallbackUser = { id: "user-1", email: "user@example.com" };
+        localStorage.setItem("user", JSON.stringify(fallbackUser));
+        setUser(fallbackUser);
     }
   }, []);
 

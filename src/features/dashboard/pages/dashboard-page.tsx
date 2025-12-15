@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { requireAuth } from "@/lib/require-auth";
 import { 
     getWeeklyMoodTrend, 
     getPopularSnackBrands, 
@@ -20,6 +21,7 @@ import { StackedAreaChart } from "../components/stacked-area-chart";
 import { DualAxisLineChart } from "../components/dual-axis-line-chart";
 
 export async function dashboardLoader() {
+  requireAuth();
   const [moodTrend, snackBrands, workoutTrend, coffeeConsumption, snackImpact] = await Promise.all([
     getWeeklyMoodTrend(),
     getPopularSnackBrands(),

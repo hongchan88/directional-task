@@ -6,8 +6,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Edit } from "lucide-react";
 import { useAuth } from "@/features/auth/auth-provider";
 import { DeletePostButton } from "../components/delete-post-button";
+import { requireAuth } from "@/lib/require-auth";
 
 export async function boardDetailLoader({ params }: LoaderFunctionArgs) {
+  requireAuth();
   if (!params.postId) throw new Error("Post ID is required");
   const post = await getPost(params.postId);
   return post;
