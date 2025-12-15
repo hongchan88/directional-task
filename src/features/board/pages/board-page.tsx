@@ -19,6 +19,27 @@ function useDebounce<T>(value: T, delay: number): T {
   return debouncedValue;
 }
 
+import { deletePost } from "../api/board-api";
+import { ActionFunctionArgs } from "react-router-dom";
+
+export async function boardAction({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+  const intent = formData.get("intent");
+
+  if (intent === "delete") {
+    const postId = formData.get("postId") as string;
+    if (!postId) return { error: "Post ID is required" };
+    
+    try {
+        await deletePost(postId);
+        return { success: true };
+    } catch (error) {
+        return { error: "Failed to delete post" };
+    }
+  }
+  return null;
+}
+
 export async function boardLoader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const page = Number(url.searchParams.get("page")) || 1;
@@ -35,6 +56,7 @@ export async function boardLoader({ request }: LoaderFunctionArgs) {
 export default function BoardPage() {
   const { data: initialData, params } = useLoaderData() as { data: PostListResponse, params: any };
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const fetcher = useFetcher<{ data: PostListResponse }>();
   // State to accumulate posts for infinite scroll
   const [posts, setPosts] = useState<Post[]>(initialData?.items || []);
@@ -137,7 +159,11 @@ export default function BoardPage() {
 
       <Card>
         <CardContent className="p-0">
-          <DataTable columns={columns} data={posts} />
+          <DataTable 
+            columns={columns} 
+            data={posts} 
+            onRowClick={(post) => navigate(`/posts/${post.id}`)}
+          />
           
           {/* Loading Indicator & Trigger */}
           <div ref={lastPostElementRef} className="py-4 text-sm text-slate-500 text-center min-h-[50px]">

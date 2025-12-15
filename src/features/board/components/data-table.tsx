@@ -22,6 +22,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   onSortingChange?: (sorting: SortingState) => void;
   sorting?: SortingState;
+  onRowClick?: (data: TData) => void;
 }
 
 export function DataTable<TData, TValue>({
@@ -29,6 +30,7 @@ export function DataTable<TData, TValue>({
   data,
   onSortingChange,
   sorting,
+  onRowClick,
 }: DataTableProps<TData, TValue>) {
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
     const [columnResizeMode] = React.useState<ColumnResizeMode>('onChange');
@@ -137,7 +139,8 @@ export function DataTable<TData, TValue>({
                     <tr
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
-                    className="border-b transition-colors hover:bg-slate-100/50 data-[state=selected]:bg-slate-100"
+                    className={`border-b transition-colors hover:bg-slate-100/50 data-[state=selected]:bg-slate-100 group ${onRowClick ? 'cursor-pointer' : ''}`}
+                    onClick={() => onRowClick?.(row.original)}
                     >
                     {row.getVisibleCells().map((cell) => (
                         <td key={cell.id} className="p-4 align-middle [&:has([role=checkbox])]:pr-0"

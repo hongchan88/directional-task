@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Form, useActionData, useNavigation, useNavigate, ActionFunctionArgs } from "react-router-dom";
 import { api } from "@/lib/axios";
-import { useAuth } from "@/features/auth/auth-provider";
+import { useAuth, User } from "@/features/auth/auth-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,17 +18,18 @@ export async function loginAction({ request }: ActionFunctionArgs) {
 
   try {
     const response = await api.post("/auth/login", { email, password });
-    return { accessToken: response.data.token, error: null };
+    console.log(response,"response" )
+    return { data: response.data, error: null };
   } catch (err: any) {
     return { 
-        accessToken: null,
+        data: null,
         error: err.response?.data?.message || "Login failed. Please check your credentials." 
     };
   }
 }
 
 export default function LoginPage() {
-  const actionData = useActionData() as { accessToken?: string; error?: string } | undefined;
+  const actionData = useActionData() as { data?: { accessToken: string ,user : User}; error?: string } | undefined;
   const navigation = useNavigation();
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -36,8 +37,8 @@ export default function LoginPage() {
   const isSubmitting = navigation.state === "submitting";
 
   useEffect(() => {
-    if (actionData?.accessToken) {
-        login(actionData.accessToken);
+    if (actionData?.data?.accessToken) {
+        login(actionData.data.accessToken, actionData.data.user);
         navigate("/posts", { replace: true });
     }
   }, [actionData, login, navigate]);

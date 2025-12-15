@@ -3,8 +3,10 @@ import LoginPage, { loginAction } from "@/features/auth/login-page";
 import ProtectedLayout from "@/components/layout/protected-layout";
 
 // Placeholder components
-import BoardPage, { boardLoader } from "@/features/board/pages/board-page";
+import BoardPage, { boardLoader, boardAction } from "@/features/board/pages/board-page";
 import BoardNewPage, { createPostAction } from "@/features/board/pages/board-new-page";
+import BoardEditPage, { boardEditLoader, updatePostAction } from "@/features/board/pages/board-edit-page";
+import BoardDetailPage, { boardDetailLoader } from "@/features/board/pages/board-detail-page";
 const DashboardPage = () => <div>Dashboard Feature (To be implemented)</div>;
 
 import ErrorPage from "@/components/error-page";
@@ -34,6 +36,18 @@ const router = createBrowserRouter([
         path: "posts",
         element: <BoardPage />,
         loader: boardLoader,
+        action: boardAction,
+      },
+      {
+        path: "posts/:postId",
+        element: <BoardDetailPage />,
+        loader: boardDetailLoader,
+      },
+      {
+        path: "posts/:postId/edit",
+        element: <BoardEditPage />,
+        loader: boardEditLoader,
+        action: updatePostAction,
       },
       {
         path: "dashboard",
