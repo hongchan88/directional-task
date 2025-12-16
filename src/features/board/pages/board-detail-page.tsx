@@ -63,10 +63,24 @@ export default function BoardDetailPage() {
                     )}
                 </div>
             </CardHeader>
-            <CardContent className="prose max-w-none mt-4">
+            <CardContent className="prose max-w-none mt-4 space-y-6">
                 <div className="whitespace-pre-wrap text-slate-700 leading-relaxed min-h-[200px]">
                     {post.body}
                 </div>
+
+                {/* Tags */}
+                {post.tags && post.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 pt-4 border-t">
+                        {post.tags.map((tag, index) => (
+                            <span
+                                key={index}
+                                className="px-2 py-1 bg-slate-100 text-slate-600 text-sm rounded-md"
+                            >
+                                #{tag}
+                            </span>
+                        ))}
+                    </div>
+                )}
             </CardContent>
        </Card>
     </div>

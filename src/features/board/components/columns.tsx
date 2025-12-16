@@ -58,6 +58,7 @@ export const columns: ColumnDef<Post>[] = [
       );
     },
   },
+
   {
     accessorKey: "userId",
     header: "Author",
@@ -91,5 +92,27 @@ export const columns: ColumnDef<Post>[] = [
     },
     enableResizing: true,
     size: 100,
+  },
+  {
+    accessorKey: "tags",
+    header: "Tags",
+    enableResizing: true,
+    size: 200,
+    cell: ({ row }) => {
+      const tags = row.getValue("tags") as string[] | undefined;
+      if (!tags || tags.length === 0) return <span className="text-slate-400">-</span>;
+      return (
+        <div className="flex flex-wrap gap-1">
+          {tags.map((tag, index) => (
+            <span
+              key={index}
+              className="px-1.5 py-0.5 bg-slate-100 text-slate-600 text-xs rounded"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      );
+    },
   },
 ];
